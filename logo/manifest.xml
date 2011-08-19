@@ -6,18 +6,21 @@
   <title>Logo</title>
      <description>Вставляет лого в шапку.</description>
 <author>floop@list.ru</author>
- <version>0.3</version>
+ <version>0.4</version>
   <minversion>1.4RC2</minversion>
   <maxtestedon>1.4RC2</maxtestedon>
   
   	<install><![CDATA[
 		forum_config_add('o_logo_src', '/extensions/logo/test.png');
 		forum_config_add('o_logo_enable', '0');
+		forum_config_add('o_logo_show_title', '0');
+
 	]]></install>
 	
 	<uninstall><![CDATA[
 		forum_config_remove('o_logo_src');
 		forum_config_remove('o_logo_enable');
+		forum_config_remove('o_logo_show_title');
 	]]></uninstall>
   
   
@@ -26,34 +29,49 @@
 <hooks>
     <hook id="aop_setup_validation"><![CDATA[
 		if (!isset($form['logo_enable']) || $form['logo_enable'] != '1')
-		$form['logo_enable'] = '0';
+			$form['logo_enable'] = '0';
+			
+		if (!isset($form['logo_show_title']) || $form['logo_show_title'] != '1')
+			$form['logo_show_title'] = '0';
 	]]></hook>
 
     <hook id="hd_gen_elements"><![CDATA[
-		if( $forum_config['o_logo_enable'] == '1')
-        $gen_elements['<!-- forum_title -->'] = '<div id="logo"> <a href="'.forum_link($forum_url['index']).'" title="'.forum_htmlencode($forum_config['o_board_title']).'"><img src="'.$base_url.$forum_config['o_logo_src'].'"		/></a></div>';
+		if( $forum_config['o_logo_enable'] == '1' && $forum_config['o_logo_show_title'] == '0')
+        	$gen_elements['<!-- forum_title -->'] = '<div id="logo"> <a href="'.forum_link($forum_url['index']).'" title="'.forum_htmlencode($forum_config['o_board_title']).'"><img src="'.$base_url.$forum_config['o_logo_src'].'"		/></a></div>';
+		if( $forum_config['o_logo_enable'] == '1' && $forum_config['o_logo_show_title'] == '1')
+			$gen_elements['<!-- forum_title -->'] = '<div style="height:100%; float:left;"><a href="'.forum_link($forum_url['index']).'" title="'.forum_htmlencode($forum_config['o_board_title']).'"><img style="float: left; margin-right:10px;;" src="'.$base_url.$forum_config['o_logo_src'].'"		/></a></div><div><p id="brd-title"><a href="'.forum_link($forum_url['index']).'">'.forum_htmlencode($forum_config['o_board_title']).'</a></p></div>';
 	]]></hook>
 				
     <hook id="aop_setup_personal_fieldset_end"><![CDATA[
 ?>
-	<fieldset class="frm-group group1">
+<fieldset class="frm-group group1">
 	<div class="content-head">
 		<h2 class="hn"><span><?php echo 'Настройки логотипа' ?></span></h2>
 	</div>
-		<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
-			<div class="sf-box checkbox">
-				<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[logo_enable]" value="1" <?php if ($forum_config['o_logo_enable'] == '1') echo 'checked' ?> /></span>
-					<label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo 'Включить логотип'.$form['logo_enable'] ?></label>
-			</div>
+		
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box checkbox">
+			<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[logo_enable]" value="1" <?php if ($forum_config['o_logo_enable'] == '1') echo 'checked' ?> /></span>
+			<label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo 'Включить логотип'.$form['logo_enable'] ?></label>
 		</div>
+	</div>
 	
-		<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
-			<div class="sf-box text">
-				<label for="fld<?php echo ++$forum_page['fld_count'] ?>">
-					<span><?php echo 'Логотип' ?></span></label><br />
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box text">
+			<label for="fld<?php echo ++$forum_page['fld_count'] ?>">
+				<span><?php echo 'Логотип' ?></span></label><br />
 					<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo_src]" size="50" maxlength="255" value="<?php echo forum_htmlencode($forum_config['o_logo_src']) ?>" /></span>
-			</div> <?php echo $form['logo_enable'] ?>
+		</div> <?php echo $form['logo_enable'] ?>
+	</div>
+	
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box checkbox">
+			<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[logo_show_title]" value="1" <?php if ($forum_config['o_logo_show_title'] == '1') echo 'checked' ?> /></span>
+			<label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo 'Показать название форума'.$form['logo_show_title'] ?></label>
 		</div>
+	</div>
+	
+	
 <?php
 ]]></hook>
 
