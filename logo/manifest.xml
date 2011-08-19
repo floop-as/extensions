@@ -2,38 +2,60 @@
 <!DOCTYPE extension SYSTEM "ext-1.0.dtd">
 
 <extension engine="1.0">
-	<id>logo</id>
-	<title>Logo</title>
-	<description>Вставляет лого в шапку.</description>
-	<author>floop@list.ru</author>
-	<version>0.2</version>
-
-	<minversion>1.4RC2</minversion>
-	<maxtestedon>1.4RC2</maxtestedon>
+  <id>logo</id>
+  <title>Logo</title>
+     <description>Вставляет лого в шапку.</description>
+<author>floop@list.ru</author>
+ <version>0.3</version>
+  <minversion>1.4RC2</minversion>
+  <maxtestedon>1.4RC2</maxtestedon>
   
-   	<install><![CDATA[
-		forum_config_add('o_logo', '/extensions/logo/test.png');
+  	<install><![CDATA[
+		forum_config_add('o_logo_src', '/extensions/logo/test.png');
+		forum_config_add('o_logo_enable', '0');
 	]]></install>
 	
 	<uninstall><![CDATA[
-		forum_config_remove('o_logo');
+		forum_config_remove('o_logo_src');
+		forum_config_remove('o_logo_enable');
 	]]></uninstall>
   
   
-	<hooks>
-		<hook id="hd_gen_elements"><![CDATA[
-			$gen_elements['<!-- forum_title -->'] = '<div id="logo"> <a href="'.forum_link($forum_url['index']).'" title="'.forum_htmlencode($forum_config['o_board_title']).'"><img src="'.$base_url.$forum_config['o_logo'].'"		/></a></div>';
-		]]></hook>
+  
 
-		<hook id="aop_setup_pre_default_style"><![CDATA[
-			?><div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
-				<div class="sf-box text">
-					<label for="fld<?php echo ++$forum_page['fld_count'] ?>">
-						<span><?php echo 'Логотип' ?></span>
-					</label><br />
-					<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo]" size="50" maxlength="255" value="<?php echo forum_htmlencode($forum_config['o_logo']) ?>" /></span>
-				</div>
-			</div><?php
-		]]></hook>
-	</hooks>
+<hooks>
+    <hook id="aop_setup_validation"><![CDATA[
+		if (!isset($form['logo_enable']) || $form['logo_enable'] != '1')
+		$form['logo_enable'] = '0';
+	]]></hook>
+
+    <hook id="hd_gen_elements"><![CDATA[
+		if( $forum_config['o_logo_enable'] == '1')
+        $gen_elements['<!-- forum_title -->'] = '<div id="logo"> <a href="'.forum_link($forum_url['index']).'" title="'.forum_htmlencode($forum_config['o_board_title']).'"><img src="'.$base_url.$forum_config['o_logo_src'].'"		/></a></div>';
+	]]></hook>
+				
+    <hook id="aop_setup_personal_fieldset_end"><![CDATA[
+?>
+	<fieldset class="frm-group group1">
+	<div class="content-head">
+		<h2 class="hn"><span><?php echo 'Настройки логотипа' ?></span></h2>
+	</div>
+		<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+			<div class="sf-box checkbox">
+				<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[logo_enable]" value="1" <?php if ($forum_config['o_logo_enable'] == '1') echo 'checked' ?> /></span>
+					<label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo 'Включить логотип'.$form['logo_enable'] ?></label>
+			</div>
+		</div>
+	
+		<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+			<div class="sf-box text">
+				<label for="fld<?php echo ++$forum_page['fld_count'] ?>">
+					<span><?php echo 'Логотип' ?></span></label><br />
+					<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo_src]" size="50" maxlength="255" value="<?php echo forum_htmlencode($forum_config['o_logo_src']) ?>" /></span>
+			</div> <?php echo $form['logo_enable'] ?>
+		</div>
+<?php
+]]></hook>
+
+</hooks>
 </extension>
