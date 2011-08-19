@@ -2,16 +2,16 @@
 <!DOCTYPE extension SYSTEM "ext-1.0.dtd">
 
 <extension engine="1.0">
-  <id>logo</id>
-  <title>Logo</title>
-     <description>Вставляет лого в шапку.</description>
-<author>floop@list.ru</author>
- <version>0.1</version>
-  <minversion>1.4RC2</minversion>
-  <maxtestedon>1.4RC2</maxtestedon>
+	<id>logo</id>
+	<title>Logo</title>
+	<description>Вставляет лого в шапку.</description>
+	<author>floop@list.ru</author>
+	<version>0.2</version>
+
+	<minversion>1.4RC2</minversion>
+	<maxtestedon>1.4RC2</maxtestedon>
   
-  
-  	<install><![CDATA[
+   	<install><![CDATA[
 		forum_config_add('o_logo', '/extensions/logo/test.png');
 	]]></install>
 	
@@ -20,22 +20,20 @@
 	]]></uninstall>
   
   
-  
+	<hooks>
+		<hook id="hd_gen_elements"><![CDATA[
+			$gen_elements['<!-- forum_title -->'] = '<div id="logo"> <a href="'.forum_link($forum_url['index']).'" title="'.forum_htmlencode($forum_config['o_board_title']).'"><img src="'.$base_url.$forum_config['o_logo'].'"		/></a></div>';
+		]]></hook>
 
-<hooks>
-    <hook id="hd_gen_elements"><![CDATA[
-        $gen_elements['<!-- forum_title -->'] = '<div id="logo"> <a href="'.forum_link($forum_url['index']).'" title="'.forum_htmlencode($forum_config['o_board_title']).'"><img src="'.$base_url.$forum_config['o_logo'].'"		/></a></div>';
-    ]]></hook>
-    <hook id="aop_setup_pre_default_style"><![CDATA[
-    ?><div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
-						<div class="sf-box text">
-							<label for="fld<?php echo ++$forum_page['fld_count'] ?>">
-								<span><?php echo 'Логотип' ?></span>
-							</label><br />
-							<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo]" size="50" maxlength="255" value="<?php echo forum_htmlencode($forum_config['o_logo']) ?>" /></span>
-						</div>
-		</div><?php
-	]]></hook>
-</hooks>
-
+		<hook id="aop_setup_pre_default_style"><![CDATA[
+			?><div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+				<div class="sf-box text">
+					<label for="fld<?php echo ++$forum_page['fld_count'] ?>">
+						<span><?php echo 'Логотип' ?></span>
+					</label><br />
+					<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo]" size="50" maxlength="255" value="<?php echo forum_htmlencode($forum_config['o_logo']) ?>" /></span>
+				</div>
+			</div><?php
+		]]></hook>
+	</hooks>
 </extension>
