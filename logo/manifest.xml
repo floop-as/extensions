@@ -52,7 +52,7 @@
 	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
 		<div class="sf-box checkbox">
 			<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[logo_enable]" value="1" <?php if ($forum_config['o_logo_enable'] == '1') echo 'checked' ?> /></span>
-			<label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo 'Включить логотип'.$form['logo_enable'] ?></label>
+			<label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo 'Включить логотип' ?></label>
 		</div>
 	</div>
 	
@@ -61,13 +61,13 @@
 			<label for="fld<?php echo ++$forum_page['fld_count'] ?>">
 				<span><?php echo 'Логотип' ?></span></label><br />
 					<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo_src]" size="50" maxlength="255" value="<?php echo forum_htmlencode($forum_config['o_logo_src']) ?>" /></span>
-		</div> <?php echo $form['logo_enable'] ?>
+		</div> 
 	</div>
 	
 	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
 		<div class="sf-box checkbox">
 			<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[logo_show_title]" value="1" <?php if ($forum_config['o_logo_show_title'] == '1') echo 'checked' ?> /></span>
-			<label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo 'Показать название форума'.$form['logo_show_title'] ?></label>
+			<label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo 'Показать название форума' ?></label>
 		</div>
 	</div>
 	
