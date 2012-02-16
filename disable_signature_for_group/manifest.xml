@@ -8,7 +8,7 @@
 <author>floop</author>
 <version>0.3</version>
 <minversion>1.4RC2</minversion>
-<maxtestedon>1.4RC2</maxtestedon>
+<maxtestedon>1.4.2</maxtestedon>
   
 <install><![CDATA[
 	$forum_db->add_field('groups', 'g_disable_signature', 'TINYINT(1)', false, 0);
