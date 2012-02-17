@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE extension SYSTEM "ext-1.0.dtd">
+
+<extension engine="1.0">
+<id>navig</id>
+<title>Another menu navigation</title>
+<description>
+Для авторизованных убирает ссылки Форум, Профиль, Выход. ссылкой на главную является название форума, ссылкой на профиль является имя пользователя, ссылка на выход переносится к имени пользователя в скобки.
+Для гостей убирает ссылки Форум, Вход, Регистрация, ссылка на вход переносится к сообщению о том что вы не вошли.
+</description>
+<author>floop@list.ru</author>
+<version>0.3</version>
+<minversion>1.4RC2</minversion>
+<maxtestedon>1.4</maxtestedon>
+    
+<hooks>
+	<hook id="fn_generate_navlinks_end"><![CDATA[
+		unset($links['logout']);
+		unset($links['login']);
+		unset($links['register']);
+		unset($links['profile']);
+		unset($links['index']);
+	]]></hook>
+	
+<hook id="hd_visit_elements"><![CDATA[
+	if ($forum_user['is_guest'])
+		$visit_elements['<!-- forum_welcome -->'] = '<p id="welcome"><span>'.$lang_common['Not logged in'].'</span>
+		<a href="'.forum_link($forum_url['login']).'">'.$lang_common['Login'].'</a> /
+		<a href="'.forum_link($forum_url['register']).'">'.$lang_common['Register'].'</a></p>';
+	else
+		$visit_elements['<!-- forum_welcome -->'] = '<p id="welcome"><span>'.sprintf($lang_common['Logged in as'], '<strong>
+		<a href="'.forum_link($forum_url['user'], $forum_user['id']).'" title="'.$lang_common['Profile'].'">'.forum_htmlencode($forum_user['username']).'</a></strong>').'</span>
+		<span>(<a href="'.forum_link($forum_url['logout'], array($forum_user['id'], generate_form_token('logout'.$forum_user['id']))).'">'.$lang_common['Logout'].'</a>)</span></p>';
+		
+		]]></hook>
+</hooks>
+</extension>
