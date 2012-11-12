@@ -6,7 +6,7 @@
 <title>Logo</title>
 <description>Add logo in header</description>
 <author>floop</author>
-<version>0.5.1</version>
+<version>0.5.2</version>
 <minversion>1.4.2</minversion>
 <maxtestedon>1.4.2</maxtestedon>
   
@@ -150,7 +150,8 @@ if (!isset($logo)) {
 ]]></hook>
 
 
-    <hook id="hd_gen_elements"><![CDATA[
+    <hook id="hd_gen_elements" priority="6"><![CDATA[
+
 			
 			if( $forum_config['o_logo_enable'] == '1' && $forum_config['o_logo_align'] == 'left' )
 				{
@@ -159,17 +160,17 @@ if (!isset($logo)) {
 					$gen_elements['<!-- forum_title -->'] .= ($forum_config['o_logo_link'] != '') ? '<a class="logo" href="'.$forum_config['o_logo_link'].'" title="'.$forum_config['o_logo_link_title'].'"></a></div></td>' : '</div></td>';
 					$gen_elements['<!-- forum_title -->'] .= '<td class="title" style="vertical-align:'.$forum_config['o_logo_title_vertical'].'">';
 					$gen_elements['<!-- forum_title -->'] .= ($forum_config['o_logo_hide_forum_title'] != '1') ? '<p id="brd-title" style="text-align:'.$forum_config['o_logo_title_align'].'"><a href="'.forum_link($forum_url['index']).'">'.forum_htmlencode($forum_config['o_board_title']).'</a></p>' : '';
-					$gen_elements['<!-- forum_desc -->'] = ($forum_config['o_board_desc'] != '') ? '<p id="brd-desc" style="text-align:'.$forum_config['o_logo_title_align'].'">'.forum_htmlencode($forum_config['o_board_desc']).'</p></td></table>' : '</td></table>';
+					$gen_elements['<!-- forum_desc -->'] = ($forum_config['o_board_desc'] != '') ? '<p id="brd-desc" style="text-align:'.$forum_config['o_logo_title_align'].'">'.forum_htmlencode($forum_config['o_board_desc']).'</p></td>' : '</td>';
+					$gen_elements['<!-- forum_desc -->'] .= (isset($ad)) ? "<td><div style='float:right;background:#999'>{$ad}</div></td></table>" : '</table>';
 				}
 			if( $forum_config['o_logo_enable'] == '1' && $forum_config['o_logo_align'] == 'right' )
 				{
-					$gen_elements['<!-- forum_title -->'] = '<table class="logo">';
+					$gen_elements['<!-- forum_title -->'] = (isset($ad)) ? "<table class='logo'><td><div style='background:#999'>{$ad}</div></td>" : '<table class="logo">';
 					$gen_elements['<!-- forum_title -->'] .= '<td class="title" style="vertical-align:'.$forum_config['o_logo_title_vertical'].'">';
 					$gen_elements['<!-- forum_title -->'] .= ($forum_config['o_logo_hide_forum_title'] != '1') ? '<p id="brd-title" style="text-align:'.$forum_config['o_logo_title_align'].'"><a href="'.forum_link($forum_url['index']).'">'.forum_htmlencode($forum_config['o_board_title']).'</a></p>' : '';
 					$gen_elements['<!-- forum_desc -->'] = ($forum_config['o_board_desc'] != '') ? '<p id="brd-desc" style="text-align:'.$forum_config['o_logo_title_align'].'">'.forum_htmlencode($forum_config['o_board_desc']).'</p></td>' : '</td>';
-					$gen_elements['<!-- forum_desc -->'] .= '<td class="logo" id="right"><div  id="right" class="logo">';
-					$gen_elements['<!-- forum_desc -->'] .= ($forum_config['o_logo_link'] != '') ? '<a class="logo" href="'.$forum_config['o_logo_link'].'" title="'.$forum_config['o_logo_link_title'].'"></a></div></td></table>' : '</div></td></table>';
-					
+					$gen_elements['<!-- forum_desc -->'] .= '<td class="logo" id="right"><div id="right" class="logo">';
+					$gen_elements['<!-- forum_desc -->'] .= ($forum_config['o_logo_link'] != '') ? '<a class="logo" href="'.$forum_config['o_logo_link'].'" title="'.$forum_config['o_logo_link_title'].'"></a></div></td></table>' : '</div></td></table>';	
 				}
 	]]></hook>
 				
