@@ -6,7 +6,7 @@
 <title>Logo</title>
 <description>Add logo in header</description>
 <author>floop</author>
-<version>0.5.2</version>
+<version>0.5.4</version>
 <minversion>1.4.2</minversion>
 <maxtestedon>1.4.2</maxtestedon>
   
@@ -222,7 +222,7 @@ $forum_url['admin_settings_logo'] = 'admin/settings.php?section=logo';
 					</div>
 						<fieldset class="frm-group group1">
 
-						<?
+						<?php
 							
 							
 						if($forum_config['o_logo_src'] != '0'){
@@ -231,12 +231,12 @@ $forum_url['admin_settings_logo'] = 'admin/settings.php?section=logo';
 					<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
 						<div class="sf-box text required">
 						<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $logo['current'] ?></span></label>
-							<?if($check_file) echo '<div style="border: solid 1px #999; margin-left: 10px; height:'.$forum_config['o_logo_height'].'px; width:'.$forum_config['o_logo_width'].'px;"><img src="'.$base_url.$forum_config['o_logo_src'].'"></div>';
+							<?php if($check_file) echo '<div style="border: solid 1px #999; margin-left: 10px; height:'.$forum_config['o_logo_height'].'px; width:'.$forum_config['o_logo_width'].'px;"><img src="'.$base_url.$forum_config['o_logo_src'].'"></div>';
 							else echo '<span style="margin-left: 10px; position: relative; top: 2px;">'.$logo['file_not_found'].'</span>'; ?>
 						</div>
 					</div>
 					
-					<?
+					<?php
 				}
 				if (!is_writable(FORUM_ROOT.'img/'))
 					echo '<div class="ct-box warn-box"><p class="important">'.$logo['not_writable'].'</p></div>';
@@ -248,7 +248,7 @@ $forum_url['admin_settings_logo'] = 'admin/settings.php?section=logo';
 							<span class="fld-input"><input id="fld<?php echo $forum_page['fld_count'] ?>" name="logo_src" type="file" size="40" /></span>	
 						</div>
 					</div>
-					<?}
+					<?php}
 					if($forum_config['o_logo_src'] != '0'){
 						?>
 					<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
@@ -263,8 +263,8 @@ $forum_url['admin_settings_logo'] = 'admin/settings.php?section=logo';
 						<div class="sf-box select">
 							<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $logo['logo_align'] ?></span></label><br />
 							<span class="fld-input"><select id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo_align]">
-							<option value="left"<?php if ($forum_config['o_logo_align'] == 'left') echo ' selected="selected"' ?>><? echo $logo['left'] ?></option>
-							<option value="right"<?php if ($forum_config['o_logo_align'] == 'right') echo ' selected="selected"' ?>><? echo $logo['right'] ?></option>
+							<option value="left"<?php if ($forum_config['o_logo_align'] == 'left') echo ' selected="selected"' ?>><?php echo $logo['left'] ?></option>
+							<option value="right"<?php if ($forum_config['o_logo_align'] == 'right') echo ' selected="selected"' ?>><?php echo $logo['right'] ?></option>
 							</select></span>
 						</div>
 					</div>
@@ -273,9 +273,9 @@ $forum_url['admin_settings_logo'] = 'admin/settings.php?section=logo';
 						<div class="sf-box select">
 							<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $logo['title_align'] ?></span><small><?php echo $logo['horizontal'] ?></small></label><br />
 							<span class="fld-input"><select id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo_title_align]" >
-							<option value="left"<?php if ($forum_config['o_logo_title_align'] == 'left') echo ' selected="selected"' ?>><? echo $logo['left'] ?></option>
-							<option value="center"<?php if ($forum_config['o_logo_title_align'] == 'center') echo ' selected="selected"' ?>><? echo $logo['center'] ?></option>
-							<option value="right"<?php if ($forum_config['o_logo_title_align'] == 'right') echo ' selected="selected"' ?>><? echo $logo['right'] ?></option>
+							<option value="left"<?php if ($forum_config['o_logo_title_align'] == 'left') echo ' selected="selected"' ?>><?php echo $logo['left'] ?></option>
+							<option value="center"<?php if ($forum_config['o_logo_title_align'] == 'center') echo ' selected="selected"' ?>><?php echo $logo['center'] ?></option>
+							<option value="right"<?php if ($forum_config['o_logo_title_align'] == 'right') echo ' selected="selected"' ?>><?php echo $logo['right'] ?></option>
 							</select></span>
 						</div>
 					</div>
@@ -284,9 +284,9 @@ $forum_url['admin_settings_logo'] = 'admin/settings.php?section=logo';
 						<div class="sf-box select">
 							<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $logo['title_vertical'] ?></span><small><?php echo $logo['vertical'] ?></small></label><br />
 							<span class="fld-input"><select id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo_title_vertical]">
-							<option value="top"<?php if ($forum_config['o_logo_title_vertical'] == 'top') echo ' selected="selected"' ?>><? echo $logo['top'] ?></option>
-							<option value="middle"<?php if ($forum_config['o_logo_title_vertical'] == 'middle') echo ' selected="selected"' ?>><? echo $logo['middle'] ?></option>
-							<option value="bottom"<?php if ($forum_config['o_logo_title_vertical'] == 'bottom') echo ' selected="selected"' ?>><? echo $logo['bottom'] ?></option>
+							<option value="top"<?php if ($forum_config['o_logo_title_vertical'] == 'top') echo ' selected="selected"' ?>><?php echo $logo['top'] ?></option>
+							<option value="middle"<?php if ($forum_config['o_logo_title_vertical'] == 'middle') echo ' selected="selected"' ?>><?php echo $logo['middle'] ?></option>
+							<option value="bottom"<?php if ($forum_config['o_logo_title_vertical'] == 'bottom') echo ' selected="selected"' ?>><?php echo $logo['bottom'] ?></option>
 							</select></span>
 						</div>
 					</div>
@@ -301,8 +301,8 @@ $forum_url['admin_settings_logo'] = 'admin/settings.php?section=logo';
 					<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
 						<div class="sf-box text">
 							<label for="fld<?php echo ++$forum_page['fld_count'] ?>">
-								<span><? echo $logo['logo_link_url'] ?></span>
-								<small><? echo $logo['logo_link_url_example'] ?></small>
+								<span><?php echo $logo['logo_link_url'] ?></span>
+								<small><?php echo $logo['logo_link_url_example'] ?></small>
 							</label><br />
 							<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo_link]" size="50" maxlength="255" value="<?php echo forum_htmlencode($forum_config['o_logo_link']) ?>" /></span>
 						</div>
@@ -311,12 +311,12 @@ $forum_url['admin_settings_logo'] = 'admin/settings.php?section=logo';
 					<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
 						<div class="sf-box text">
 							<label for="fld<?php echo ++$forum_page['fld_count'] ?>">
-								<span><? echo $logo['logo_link_title'] ?></span>
+								<span><?php echo $logo['logo_link_title'] ?></span>
 							</label><br />
 							<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[logo_link_title]" size="50" maxlength="255" value="<?php echo forum_htmlencode($forum_config['o_logo_link_title']) ?>" /></span>
 						</div>
 					</div>
-					<?
+					<?php
 				}
 				?>
 			</fieldset>
@@ -324,7 +324,7 @@ $forum_url['admin_settings_logo'] = 'admin/settings.php?section=logo';
 							<span class="submit primary"><input type="submit" name="save" value="<?php echo $lang_admin_common['Save changes'] ?>" /></span>
 						</div>
 					</form>
-				</div><?
+				</div><?php
 }
 ]]></hook>
 
