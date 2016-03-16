@@ -6,9 +6,9 @@
 <title>Disable signature for group</title>
 <description>Добавляет возможность отключения подписи для группы. Disable signature for group</description>
 <author>floop</author>
-<version>0.3</version>
+<version>0.4</version>
 <minversion>1.4RC2</minversion>
-<maxtestedon>1.4.2</maxtestedon>
+<maxtestedon>1.4.4</maxtestedon>
   
 <install><![CDATA[
 	$forum_db->add_field('groups', 'g_disable_signature', 'TINYINT(1)', false, 0);
@@ -37,21 +37,31 @@
 	$disable_signature = isset($_POST['disable_signature']) ? intval($_POST['disable_signature']) : '0';
 ]]></hook>
 
-<hook id="agr_add_edit_group_pre_user_permissions_fieldset_end"><![CDATA[?>
+<hook id="agr_add_edit_group_pre_user_permissions_fieldset_end"><![CDATA[
+	?>
 	<div class="mf-item">
 		<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="disable_signature" value="1"<?php if ($group['g_disable_signature'] == '1') echo ' checked="checked"' ?> /></span>
 		<label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo 'Disable signature' ?></label>
 	</div>
-<?php]]></hook>
+	<?php
+]]></hook>
 	
-<hook id="pf_change_details_signature_validation"><![CDATA[?>
-	if ($forum_config['o_signatures'] == '0' || $user['disable_signature'] == '1') message($lang_profile['Signatures disabled']);
-<?php]]></hook>
+<hook id="pf_change_details_signature_validation"><![CDATA[
+		if ($forum_config['o_signatures'] == '0' || $user['disable_signature'] == '1') message($lang_profile['Signatures disabled']);
+]]></hook>
 		
 <hook id="agr_edit_end_qr_update_group"><![CDATA[
 	$query = array(
 		'UPDATE'	=> 'groups',
-		'SET'		=> 'g_title=\''.$forum_db->escape($title).'\', g_user_title='.$user_title.', g_moderator='.$moderator.', g_mod_edit_users='.$mod_edit_users.', g_mod_rename_users='.$mod_rename_users.', g_mod_change_passwords='.$mod_change_passwords.', g_mod_ban_users='.$mod_ban_users.', g_read_board='.$read_board.', g_view_users='.$view_users.', g_post_replies='.$post_replies.', g_post_topics='.$post_topics.', g_edit_posts='.$edit_posts.', g_delete_posts='.$delete_posts.', g_delete_topics='.$delete_topics.', g_set_title='.$set_title.', g_search='.$search.', g_search_users='.$search_users.', g_send_email='.$send_email.', g_post_flood='.$post_flood.', g_search_flood='.$search_flood.', g_email_flood='.$email_flood.', g_disable_signature='.$disable_signature,
+		'SET'		=> 'g_title=\''.$forum_db->escape($title).'\', g_user_title='.$user_title.',
+						g_moderator='.$moderator.', g_mod_edit_users='.$mod_edit_users.',
+						g_mod_rename_users='.$mod_rename_users.', g_mod_change_passwords='.$mod_change_passwords.',
+						g_mod_ban_users='.$mod_ban_users.', g_read_board='.$read_board.', g_view_users='.$view_users.',
+						g_post_replies='.$post_replies.', g_post_topics='.$post_topics.', g_edit_posts='.$edit_posts.',
+						g_delete_posts='.$delete_posts.', g_delete_topics='.$delete_topics.', g_set_title='.$set_title.',
+						g_search='.$search.', g_search_users='.$search_users.', g_send_email='.$send_email.',
+						g_post_flood='.$post_flood.', g_search_flood='.$search_flood.', g_email_flood='.$email_flood.',
+						g_disable_signature='.$disable_signature,
 		'WHERE'		=> 'g_id='.$group_id
 	);
 ]]></hook>
