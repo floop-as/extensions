@@ -1,40 +1,40 @@
-table.logo td{
-	border:none;
-	padding:0px;
-}
-table.logo{
-	table-layout:initial;
+table.o_logo td {
+    border: none;
+    padding: 0px;
 }
 
-td.title{
-	border:none;
-	overflow: visible;
-}
-td.logo{
-	padding:0px;
-}
-div.logo{
-	padding:0px;
-	border:none;
-	background-repeat: no-repeat;	
+table.o_logo {
+    table-layout: initial;
 }
 
-div.logo#right{
-	float:right;
-	}
+td.o_logo_title {
+    border: none;
+    overflow: visible;
+}
 
-div.logo a.logo{
-	display:block;
-	height: 100%;
-	}
-	
-	table.logo, table.logo td{
-	//	border:solid 1px #000;
-	}
+td.o_logo {
+    padding: 0px;
+}
 
-table.logo td#right{
-	border-left: solid 1em transparent;
-	}
-	table.logo td#left{
-		border-right: solid 1em transparent;
-		}
+div.o_logo {
+    padding: 0px;
+    border: none;
+    background-repeat: no-repeat;
+}
+
+div.o_logo o_logo_right {
+    float: right;
+}
+
+div.o_logo a.o_logo {
+    display: block;
+    height: 100%;
+}
+
+table.o_logo td.o_logo_right {
+    border-left: solid 1em transparent;
+}
+
+table.o_logo td.o_logo_left {
+    border-right: solid 1em transparent;
+}
