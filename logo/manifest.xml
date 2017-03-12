@@ -9,7 +9,7 @@
     </description>
     <author>floop</author>
     <note type="install">folder /img must be writable</note>
-    <version>0.5.3</version>
+    <version>0.5.5</version>
     <minversion>1.4.2RC</minversion>
     <maxtestedon>1.4.4</maxtestedon>
 
